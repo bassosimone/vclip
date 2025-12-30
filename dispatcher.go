@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/bassosimone/must"
 	"github.com/bassosimone/runtimex"
 	"github.com/bassosimone/vflag"
 )
@@ -174,10 +175,10 @@ func (c *DispatcherCommand) maybeHandleError(err error) error {
 		return err
 
 	case c.ErrorHandling == vflag.ExitOnError:
-		mustFprintf(c.Stderr, "%s\n", err.Error())
+		must.Fprintf(c.Stderr, "%s\n", err.Error())
 		switch {
 		case errors.Is(err, ErrCommandNotFound):
-			mustFprintf(c.Stderr, "hint: use `%s --help' to see the available commands\n", c.Name)
+			must.Fprintf(c.Stderr, "hint: use `%s --help' to see the available commands\n", c.Name)
 			c.Exit(2)
 		default:
 			c.Exit(1)

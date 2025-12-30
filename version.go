@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/bassosimone/must"
 	"github.com/bassosimone/vflag"
 )
 
@@ -31,6 +32,6 @@ func (c *DispatcherCommand) versionMain(ctx context.Context, args []string) erro
 	}
 
 	// print the version on stdout
-	mustFprintf(c.Stdout, "%s\n", c.Version)
+	must.Fprintf(c.Stdout, "%s\n", c.Version)
 	return nil
 }

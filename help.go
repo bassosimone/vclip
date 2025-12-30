@@ -10,6 +10,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/bassosimone/must"
 	"github.com/bassosimone/textwrap"
 	"github.com/bassosimone/vflag"
 )
@@ -51,58 +52,58 @@ func (c *DispatcherCommand) printHelp() error {
 	const wrapAtColumn = 72
 
 	// Usage
-	mustFprintf(c.Stdout, "\n")
-	mustFprintf(c.Stdout, "Usage\n")
-	mustFprintf(c.Stdout, "\n")
+	must.Fprintf(c.Stdout, "\n")
+	must.Fprintf(c.Stdout, "Usage\n")
+	must.Fprintf(c.Stdout, "\n")
 	for _, name := range slices.Sorted(maps.Keys(c.Commands)) {
 		for _, alias := range c.CommandNameToAliases[name] {
-			mustFprintf(c.Stdout, "    %s %s [args...]\n", c.Name, alias)
+			must.Fprintf(c.Stdout, "    %s %s [args...]\n", c.Name, alias)
 		}
-		mustFprintf(c.Stdout, "    %s %s [args...]\n", c.Name, name)
-		mustFprintf(c.Stdout, "\n")
+		must.Fprintf(c.Stdout, "    %s %s [args...]\n", c.Name, name)
+		must.Fprintf(c.Stdout, "\n")
 	}
 
 	// Description
 	if len(c.Description) > 0 {
-		mustFprintf(c.Stdout, "Description\n")
+		must.Fprintf(c.Stdout, "Description\n")
 		for _, paragraph := range c.Description {
-			mustFprintf(c.Stdout, "\n")
-			mustFprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
-			mustFprintf(c.Stdout, "\n")
+			must.Fprintf(c.Stdout, "\n")
+			must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
+			must.Fprintf(c.Stdout, "\n")
 		}
-		mustFprintf(c.Stdout, "\n")
+		must.Fprintf(c.Stdout, "\n")
 	}
 
 	// Commands
-	mustFprintf(c.Stdout, "Commands\n")
+	must.Fprintf(c.Stdout, "Commands\n")
 	for _, name := range slices.Sorted(maps.Keys(c.Commands)) {
-		mustFprintf(c.Stdout, "\n")
+		must.Fprintf(c.Stdout, "\n")
 		aliases := slices.Clone(c.CommandNameToAliases[name])
 		aliases = append(aliases, name)
-		mustFprintf(c.Stdout, "    %s\n", strings.Join(aliases, ", "))
+		must.Fprintf(c.Stdout, "    %s\n", strings.Join(aliases, ", "))
 		command := c.Commands[name]
 		for _, paragraph := range command.descr {
-			mustFprintf(c.Stdout, "\n")
-			mustFprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "        "))
-			mustFprintf(c.Stdout, "\n")
+			must.Fprintf(c.Stdout, "\n")
+			must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "        "))
+			must.Fprintf(c.Stdout, "\n")
 		}
 	}
 
 	// Hints
-	mustFprintf(c.Stdout, "\n")
-	mustFprintf(c.Stdout, "Hints\n")
+	must.Fprintf(c.Stdout, "\n")
+	must.Fprintf(c.Stdout, "Hints\n")
 	paragraphs := []string{
 		fmt.Sprintf("Use `%s <command> --help' to get command-specific help.", c.Name),
 		"Append `--help' or `-h' to any command line failing with usage errors to hide the " +
 			"error and obtain contextual help.",
 	}
 	for _, paragraph := range paragraphs {
-		mustFprintf(c.Stdout, "\n")
-		mustFprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
-		mustFprintf(c.Stdout, "\n")
+		must.Fprintf(c.Stdout, "\n")
+		must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
+		must.Fprintf(c.Stdout, "\n")
 
 	}
 
-	mustFprintf(c.Stdout, "\n")
+	must.Fprintf(c.Stdout, "\n")
 	return nil
 }

@@ -3,9 +3,10 @@ module github.com/bassosimone/vclip
 go 1.25.5
 
 require (
+	github.com/bassosimone/must v0.0.0-20251230231710-cc7c7ac561be
 	github.com/bassosimone/runtimex v0.0.0-20251217192325-70882b9ab4d3
 	github.com/bassosimone/textwrap v0.0.0-20251230023300-aabed485c498
-	github.com/bassosimone/vflag v0.0.0-20251230202043-fffbca98ac5e
+	github.com/bassosimone/vflag v0.0.0-20251230232244-127e2a9e61bc
 )
 
 require (
