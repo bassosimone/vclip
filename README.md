@@ -69,4 +69,4 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 ## History
 
-Adapted from [bassosimone/clip](https://github.com/bassosimone/clip/tree/v0.8.0).
+Heavily refactored from original code at [bassosimone/clip](https://github.com/bassosimone/clip/tree/v0.8.0).
