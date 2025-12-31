@@ -292,10 +292,12 @@ func Example_dispatcherCommandVersionFlag() {
 	// v0.1.0
 }
 
-// This example shows the usage printed using the `version --help` arguments.
+// This example shows the usage printed using the `version --help` arguments
+// when using ContinueOnError (ExitOnError exits immediately so it's a different
+// codepath not controller by this library.)
 func Example_dispatcherCommandVersionHelp() {
 	// create and init the dispatcher command
-	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
 	disp.AddDescription("Dispacher for network commands.")
 	disp.Version = "v0.1.0"
 
@@ -314,15 +316,6 @@ func Example_dispatcherCommandVersionHelp() {
 		}),
 		"Utility to query DNS servers.",
 	)
-
-	// Override Exit to transform it into a panic: using ExitOnError for a subcommand
-	// eventually causes `disp.Exit(0)` to be invoked after printing help
-	disp.Exit = func(status int) {
-		panic("mocked exit invocation")
-	}
-
-	// Handle the panic by caused by Exit by simply ignoring it
-	defer func() { recover() }()
 
 	// a background context is sufficient for this example
 	ctx := context.Background()
@@ -347,9 +340,11 @@ func Example_dispatcherCommandVersionHelp() {
 }
 
 // This example shows that `help version` is equivalent to `version --help`
+// when using ContinueOnError (ExitOnError exits immediately so it's a different
+// codepath not controller by this library.)
 func Example_dispatcherCommandHelpVersion() {
 	// create and init the dispatcher command
-	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
 	disp.AddDescription("Dispacher for network commands.")
 	disp.Version = "v0.1.0"
 
@@ -368,15 +363,6 @@ func Example_dispatcherCommandHelpVersion() {
 		}),
 		"Utility to query DNS servers.",
 	)
-
-	// Override Exit to transform it into a panic: using ExitOnError for a subcommand
-	// eventually causes `disp.Exit(0)` to be invoked after printing help
-	disp.Exit = func(status int) {
-		panic("mocked exit invocation")
-	}
-
-	// Handle the panic by caused by Exit by simply ignoring it
-	defer func() { recover() }()
 
 	// a background context is sufficient for this example
 	ctx := context.Background()
@@ -400,10 +386,12 @@ func Example_dispatcherCommandHelpVersion() {
 	//         Show this help message and exit.
 }
 
-// This example shows an error being printed with invalid flag passed to `version`.
+// This example shows an error being printed with invalid flag passed to `version`
+// when using ContinueOnError (ExitOnError exits immediately so it's a different
+// codepath not controller by this library.)
 func Example_dispatcherCommandVersionInvalidFlag() {
 	// create and init the dispatcher command
-	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
 	disp.AddDescription("Dispacher for network commands.")
 	disp.Version = "v0.1.0"
 
@@ -422,15 +410,6 @@ func Example_dispatcherCommandVersionInvalidFlag() {
 		}),
 		"Utility to query DNS servers.",
 	)
-
-	// Override Exit to transform it into a panic: using ExitOnError for a subcommand
-	// eventually causes `disp.Exit(0)` to be invoked after printing help
-	disp.Exit = func(status int) {
-		panic("mocked exit invocation")
-	}
-
-	// Handle the panic by caused by Exit by simply ignoring it
-	defer func() { recover() }()
 
 	// Redirect the stderr to the stdout so that we can capture it
 	disp.Stderr = os.Stdout
