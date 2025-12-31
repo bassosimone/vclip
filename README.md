@@ -12,24 +12,35 @@ For example:
 import (
 	"context"
 
+	"github.com/bassosimone/runtimex"
 	"github.com/bassosimone/vclip"
 	"github.com/bassosimone/vflag"
 )
 
-// Create a dispatcher and add subcommands
+// Create dispatcher
 disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
 disp.AddDescription("Dispatcher for network commands.")
+
+// Add curl subcommand
 disp.AddCommand(
 	"curl",
 	vclip.CommandFunc(func(ctx context.Context, args []string) error {
-		return nil
+		fset := vflag.NewFlagSet("example ls", vflag.ExitOnError)
+		fLocation := false
+		fset.BoolVar(&fLocation, 'l', "location")
+		fSilent := false
+		fset.BoolVar(&fSilent, 's', "silent")
+		runtimex.PanicOnError0(fset.Parse(args))
+		// ...
 	}),
 	"Utility to transfer URLs.",
 )
+
+// Add dig subcommand
 disp.AddCommand(
 	"dig",
 	vclip.CommandFunc(func(ctx context.Context, args []string) error {
-		return nil
+		// ...
 	}),
 	"Utility to query DNS servers.",
 )
