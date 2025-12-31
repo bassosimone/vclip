@@ -6,7 +6,7 @@ require (
 	github.com/bassosimone/must v0.0.0-20251230231710-cc7c7ac561be
 	github.com/bassosimone/runtimex v0.0.0-20251217192325-70882b9ab4d3
 	github.com/bassosimone/textwrap v0.0.0-20251230023300-aabed485c498
-	github.com/bassosimone/vflag v0.0.0-20251231113346-299a693554cc
+	github.com/bassosimone/vflag v0.0.0-20251231121509-39afe7ae897e
 	github.com/stretchr/testify v1.11.1
 )
 

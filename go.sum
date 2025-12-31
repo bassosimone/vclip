@@ -10,8 +10,8 @@ github.com/bassosimone/runtimex v0.0.0-20251217192325-70882b9ab4d3 h1:NHcu1geY9W
 github.com/bassosimone/runtimex v0.0.0-20251217192325-70882b9ab4d3/go.mod h1:GDr46yuJzuDkzOMI1/9Voo3s7VmYBU/6pkuaI5FR7gE=
 github.com/bassosimone/textwrap v0.0.0-20251230023300-aabed485c498 h1:R7F7UMhOkAbFmUHloP9N9Wjvyq45WSjvQ4DXr99Hd4U=
 github.com/bassosimone/textwrap v0.0.0-20251230023300-aabed485c498/go.mod h1:SroxjmxXkIVaeta+FgkXfDe0NJQ8of3HOTevtTvLsKA=
-github.com/bassosimone/vflag v0.0.0-20251231113346-299a693554cc h1:vsLBjrLMQLgY6VkJZEM6p2B5ZAc21QsARArey5u/GPg=
-github.com/bassosimone/vflag v0.0.0-20251231113346-299a693554cc/go.mod h1:kbdg/JJb/gEdvftVpP6IcVfdS8d4Dy0ZBJNOIcncYLw=
+github.com/bassosimone/vflag v0.0.0-20251231121509-39afe7ae897e h1:U/MQ47rodNRgc+zDKhP463I9GYkycZihqupPPAutG/M=
+github.com/bassosimone/vflag v0.0.0-20251231121509-39afe7ae897e/go.mod h1:kbdg/JJb/gEdvftVpP6IcVfdS8d4Dy0ZBJNOIcncYLw=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
