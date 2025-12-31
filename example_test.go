@@ -614,10 +614,12 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	//     errors to hide the error and obtain contextual help.
 }
 
-// This example shows what the help subcommand does when passed an invalid flag.
+// This example shows what the help subcommand does when passed an invalid flag
+// when using ContinueOnError (with ExitOnError we don't control what happens
+// since it all depends on the vflag library)
 func Example_dispatcherCommandUsageHelpWithInvalidFlag() {
 	// create and init the dispatcher command
-	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
 	disp.AddDescription("Dispacher for network commands.")
 
 	// add two commands faking curl and dig
@@ -635,15 +637,6 @@ func Example_dispatcherCommandUsageHelpWithInvalidFlag() {
 		}),
 		"Utility to query DNS servers.",
 	)
-
-	// Override Exit to transform it into a panic: using ExitOnError for a subcommand
-	// eventually causes `disp.Exit(0)` to be invoked after printing help
-	disp.Exit = func(status int) {
-		panic("mocked exit invocation")
-	}
-
-	// Handle the panic by caused by Exit by simply ignoring it
-	defer func() { recover() }()
 
 	// Redirect the stderr to the stdout so that we can capture it
 	disp.Stderr = os.Stdout
@@ -729,4 +722,42 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	//
 	//     Append `--help' or `-h' to any command line failing with usage
 	//     errors to hide the error and obtain contextual help.
+}
+
+// This example shows what the help subcommand does when passed an invalid subcommand
+// when using ContinueOnError (with ExitOnError we don't control what happens
+// since it all depends on the vflag library)
+func Example_dispatcherCommandUsageHelpWithInvalidSubcommand() {
+	// create and init the dispatcher command
+	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
+	disp.AddDescription("Dispacher for network commands.")
+
+	// add two commands faking curl and dig
+	disp.AddCommand(
+		"curl",
+		vclip.CommandFunc(func(ctx context.Context, args []string) error {
+			return nil
+		}),
+		"Utility to transfer URLs.",
+	)
+	disp.AddCommand(
+		"dig",
+		vclip.CommandFunc(func(ctx context.Context, args []string) error {
+			return nil
+		}),
+		"Utility to query DNS servers.",
+	)
+
+	// Redirect the stderr to the stdout so that we can capture it
+	disp.Stderr = os.Stdout
+
+	// a background context is sufficient for this example
+	ctx := context.Background()
+
+	// pass an invalid subcommand to `help` to see an error
+	disp.Main(ctx, []string{"help", "nope"})
+
+	// Output:
+	// example help: command not found: nope
+	// hint: try `example help --help' for more help.
 }

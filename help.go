@@ -40,7 +40,9 @@ func (c *DispatcherCommand) helpMain(ctx context.Context, args []string) error {
 		if cmd, ok := c.findCommand(fset.Args()[0]); ok {
 			return cmd.Main(ctx, []string{"--help"})
 		}
-		return fmt.Errorf("%s: %w: %s", fset.ProgramName, ErrCommandNotFound, args[0])
+		err := fmt.Errorf("%w: %s", ErrCommandNotFound, args[0])
+		fset.PrintUsageError(c.Stderr, err)
+		return err
 	}
 
 	// print the general overall help
