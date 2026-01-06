@@ -19,7 +19,9 @@ import (
 func (c *DispatcherCommand) helpMain(ctx context.Context, args []string) error {
 	// initialize the flag set
 	fset := vflag.NewFlagSet(fmt.Sprintf("%s help", c.Name), c.ErrorHandling)
-	fset.AddDescription(helpSubcommandDescr)
+	usage := vflag.NewDefaultUsagePrinter()
+	usage.AddDescription(helpSubcommandDescr)
+	fset.UsagePrinter = usage
 	fset.AutoHelp('h', "help", helpFlagDescr)
 	fset.SetMinMaxPositionalArgs(0, 1)
 	fset.Exit = c.Exit

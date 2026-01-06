@@ -422,7 +422,7 @@ func Example_dispatcherCommandVersionInvalidFlag() {
 
 	// Output:
 	// example version: unknown option: --nope
-	// hint: try `example version --help' for more help.
+	// example version: try `example version --help' for more help.
 }
 
 // This example shows the error emitted for an invalid command
@@ -649,7 +649,7 @@ func Example_dispatcherCommandUsageHelpWithInvalidFlag() {
 
 	// Output:
 	// example help: unknown option: --nope
-	// hint: try `example help --help' for more help.
+	// example help: try `example help --help' for more help.
 }
 
 // This example shows that `help --help` is equivalent to `help` (if using ContinueOnError)
@@ -759,5 +759,5 @@ func Example_dispatcherCommandUsageHelpWithInvalidSubcommand() {
 
 	// Output:
 	// example help: command not found: nope
-	// hint: try `example help --help' for more help.
+	// example help: try `example help --help' for more help.
 }
