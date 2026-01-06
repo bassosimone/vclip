@@ -4,26 +4,26 @@ package vclip
 
 import "context"
 
-// describedCommand is a command living side by side with its docs.
-type describedCommand struct {
-	// cmd is the [Command].
-	cmd Command
+// DescribedCommand is a command living side by side with its docs.
+type DescribedCommand struct {
+	// Cmd is the [Command].
+	Cmd Command
 
-	// descr contains the [Command] description.
-	descr []string
+	// Descr contains the [Command] description.
+	Descr []string
 }
 
-// newDescribedCommand creates a [Command] along with the related documentation.
-func newDescribedCommand(cmd Command, descr ...string) describedCommand {
-	return describedCommand{
-		cmd:   cmd,
-		descr: descr,
+// NewDescribedCommand creates a [Command] along with the related documentation.
+func NewDescribedCommand(cmd Command, descr ...string) DescribedCommand {
+	return DescribedCommand{
+		Cmd:   cmd,
+		Descr: descr,
 	}
 }
 
-var _ Command = describedCommand{}
+var _ Command = DescribedCommand{}
 
 // Main implements [Command].
-func (dc describedCommand) Main(ctx context.Context, args []string) error {
-	return dc.cmd.Main(ctx, args)
+func (dc DescribedCommand) Main(ctx context.Context, args []string) error {
+	return dc.Cmd.Main(ctx, args)
 }

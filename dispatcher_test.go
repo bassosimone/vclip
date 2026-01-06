@@ -30,13 +30,13 @@ func TestDispatcherCommandFindCommandRoundTrip(t *testing.T) {
 	foundAlias, ok := disp.findCommand("e")
 	require.True(t, ok)
 
-	foundDescr, ok := found.(describedCommand)
+	foundDescr, ok := found.(DescribedCommand)
 	require.True(t, ok)
-	foundAliasDescr, ok := foundAlias.(describedCommand)
+	foundAliasDescr, ok := foundAlias.(DescribedCommand)
 	require.True(t, ok)
 
-	assert.Same(t, cmd, foundDescr.cmd)
-	assert.Same(t, cmd, foundAliasDescr.cmd)
+	assert.Same(t, cmd, foundDescr.Cmd)
+	assert.Same(t, cmd, foundAliasDescr.Cmd)
 }
 
 type exitPanic struct {

@@ -35,7 +35,7 @@ type DispatcherCommand struct {
 	//  1. `-h`, `--help`, and `help` to print help.
 	//
 	//  2. `--version` and `version` to print the version number.
-	Commands map[string]describedCommand
+	Commands map[string]DescribedCommand
 
 	// Description contains the description paragraphs.
 	//
@@ -57,6 +57,20 @@ type DispatcherCommand struct {
 	// Set by the parameter passed to [NewDispatcherCommand].
 	Name string
 
+	// NewHelpSubcommandUsagePrinter returns the [vflag.UsagePrinter] that the
+	// auto-generated help subcommand should use.
+	//
+	// [NewDispatcherCommand] initializes this function to a sane default
+	// that includes a minimal command description.
+	NewHelpSubcommandUsagePrinter func() vflag.UsagePrinter
+
+	// NewVersionSubcommandUsagePrinter returns the [vflag.UsagePrinter] that the
+	// auto-generated version subcommand should use.
+	//
+	// [NewDispatcherCommand] initializes this function to a sane default
+	// that includes a minimal command description.
+	NewVersionSubcommandUsagePrinter func() vflag.UsagePrinter
+
 	// Stderr is the [io.Writer] to use as the stderr.
 	//
 	// [NewDispatcherCommand] initializes this field to [os.Stderr].
@@ -70,6 +84,11 @@ type DispatcherCommand struct {
 	//
 	// We use this field with [ExitOnError] policy.
 	Stdout io.Writer
+
+	// UsagePrinter is the [UsagePrinter] to use.
+	//
+	// Initialized by [NewDispatcherCommand] using [NewDefaultUsagePrinter].
+	UsagePrinter UsagePrinter
 
 	// Version contains the program version.
 	//
@@ -93,14 +112,25 @@ func NewDispatcherCommand(name string, handling vflag.ErrorHandling) *Dispatcher
 	c := &DispatcherCommand{
 		CommandAliasToName:   map[string]string{},
 		CommandNameToAliases: map[string][]string{},
-		Commands:             map[string]describedCommand{},
+		Commands:             map[string]DescribedCommand{},
 		Description:          []string{},
 		ErrorHandling:        handling,
 		Exit:                 os.Exit,
 		Name:                 name,
-		Stdout:               os.Stdout,
-		Stderr:               os.Stderr,
-		Version:              "v0.0.0-dev",
+		NewHelpSubcommandUsagePrinter: func() vflag.UsagePrinter {
+			usage := vflag.NewDefaultUsagePrinter()
+			usage.AddDescription(helpSubcommandDescr)
+			return usage
+		},
+		NewVersionSubcommandUsagePrinter: func() vflag.UsagePrinter {
+			usage := vflag.NewDefaultUsagePrinter()
+			usage.AddDescription(versionSubcommandDescr)
+			return usage
+		},
+		Stdout:       os.Stdout,
+		Stderr:       os.Stderr,
+		UsagePrinter: NewDefaultUsagePrinter(),
+		Version:      "v0.0.0-dev",
 	}
 
 	c.AddCommand("help", CommandFunc(c.helpMain), helpSubcommandDescr)
@@ -123,7 +153,7 @@ func (c *DispatcherCommand) AddDescription(text ...string) {
 // Commands MUST handle the `--help` flag and provide help when they see it regardless
 // of the otherwise different convention they use for flags.
 func (c *DispatcherCommand) AddCommand(name string, cmd Command, descr ...string) {
-	c.Commands[name] = newDescribedCommand(cmd, descr...)
+	c.Commands[name] = NewDescribedCommand(cmd, descr...)
 }
 
 // MustAddCommandAlias introduces an alias for an existing command.

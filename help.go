@@ -6,12 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"maps"
-	"slices"
-	"strings"
 
-	"github.com/bassosimone/must"
-	"github.com/bassosimone/textwrap"
 	"github.com/bassosimone/vflag"
 )
 
@@ -19,9 +14,7 @@ import (
 func (c *DispatcherCommand) helpMain(ctx context.Context, args []string) error {
 	// initialize the flag set
 	fset := vflag.NewFlagSet(fmt.Sprintf("%s help", c.Name), c.ErrorHandling)
-	usage := vflag.NewDefaultUsagePrinter()
-	usage.AddDescription(helpSubcommandDescr)
-	fset.UsagePrinter = usage
+	fset.UsagePrinter = c.NewHelpSubcommandUsagePrinter()
 	fset.AutoHelp('h', "help", helpFlagDescr)
 	fset.SetMinMaxPositionalArgs(0, 1)
 	fset.Exit = c.Exit
@@ -52,56 +45,6 @@ func (c *DispatcherCommand) helpMain(ctx context.Context, args []string) error {
 }
 
 func (c *DispatcherCommand) printHelp() error {
-	// print the help message
-	const wrapAtColumn = 72
-
-	// ## Usage
-	must.Fprintf(c.Stdout, "\n")
-	must.Fprintf(c.Stdout, "Usage\n")
-	must.Fprintf(c.Stdout, "\n")
-	must.Fprintf(c.Stdout, "    %s COMMAND [args...]\n", c.Name)
-	must.Fprintf(c.Stdout, "\n")
-
-	// ## Description
-	if len(c.Description) > 0 {
-		must.Fprintf(c.Stdout, "Description\n")
-		for _, paragraph := range c.Description {
-			must.Fprintf(c.Stdout, "\n")
-			must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
-			must.Fprintf(c.Stdout, "\n")
-		}
-		must.Fprintf(c.Stdout, "\n")
-	}
-
-	// ## Commands
-	must.Fprintf(c.Stdout, "Commands\n")
-	for _, name := range slices.Sorted(maps.Keys(c.Commands)) {
-		must.Fprintf(c.Stdout, "\n")
-		aliases := slices.Clone(c.CommandNameToAliases[name])
-		aliases = append(aliases, name)
-		must.Fprintf(c.Stdout, "    %s\n", strings.Join(aliases, ", "))
-		command := c.Commands[name]
-		for _, paragraph := range command.descr {
-			must.Fprintf(c.Stdout, "\n")
-			must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "        "))
-			must.Fprintf(c.Stdout, "\n")
-		}
-	}
-
-	// ## Hints
-	must.Fprintf(c.Stdout, "\n")
-	must.Fprintf(c.Stdout, "Hints\n")
-	paragraphs := []string{
-		fmt.Sprintf("Use `%s <command> --help' to get command-specific help.", c.Name),
-		"Append `--help' or `-h' to any command line failing with usage errors to hide the " +
-			"error and obtain contextual help.",
-	}
-	for _, paragraph := range paragraphs {
-		must.Fprintf(c.Stdout, "\n")
-		must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
-		must.Fprintf(c.Stdout, "\n")
-	}
-
-	must.Fprintf(c.Stdout, "\n")
+	c.UsagePrinter.PrintHelp(c, c.Stdout)
 	return nil
 }

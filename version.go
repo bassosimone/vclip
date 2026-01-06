@@ -15,9 +15,7 @@ import (
 func (c *DispatcherCommand) versionMain(ctx context.Context, args []string) error {
 	// initialize the flag set
 	fset := vflag.NewFlagSet(fmt.Sprintf("%s version", c.Name), c.ErrorHandling)
-	usage := vflag.NewDefaultUsagePrinter()
-	usage.AddDescription(versionSubcommandDescr)
-	fset.UsagePrinter = usage
+	fset.UsagePrinter = c.NewVersionSubcommandUsagePrinter()
 	fset.AutoHelp('h', "help", helpFlagDescr)
 	fset.Exit = c.Exit
 	fset.Stderr = c.Stderr
