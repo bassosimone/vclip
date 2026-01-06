@@ -55,7 +55,7 @@ func (c *DispatcherCommand) printHelp() error {
 	// print the help message
 	const wrapAtColumn = 72
 
-	// Usage
+	// ## Usage
 	must.Fprintf(c.Stdout, "\n")
 	must.Fprintf(c.Stdout, "Usage\n")
 	must.Fprintf(c.Stdout, "\n")
@@ -67,7 +67,7 @@ func (c *DispatcherCommand) printHelp() error {
 		must.Fprintf(c.Stdout, "\n")
 	}
 
-	// Description
+	// ## Description
 	if len(c.Description) > 0 {
 		must.Fprintf(c.Stdout, "Description\n")
 		for _, paragraph := range c.Description {
@@ -78,7 +78,7 @@ func (c *DispatcherCommand) printHelp() error {
 		must.Fprintf(c.Stdout, "\n")
 	}
 
-	// Commands
+	// ## Commands
 	must.Fprintf(c.Stdout, "Commands\n")
 	for _, name := range slices.Sorted(maps.Keys(c.Commands)) {
 		must.Fprintf(c.Stdout, "\n")
@@ -93,7 +93,7 @@ func (c *DispatcherCommand) printHelp() error {
 		}
 	}
 
-	// Hints
+	// ## Hints
 	must.Fprintf(c.Stdout, "\n")
 	must.Fprintf(c.Stdout, "Hints\n")
 	paragraphs := []string{
@@ -105,7 +105,6 @@ func (c *DispatcherCommand) printHelp() error {
 		must.Fprintf(c.Stdout, "\n")
 		must.Fprintf(c.Stdout, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
 		must.Fprintf(c.Stdout, "\n")
-
 	}
 
 	must.Fprintf(c.Stdout, "\n")
