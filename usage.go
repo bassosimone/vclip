@@ -41,7 +41,7 @@ func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 	must.Fprintf(w, "\n")
 	must.Fprintf(w, "Usage\n")
 	must.Fprintf(w, "\n")
-	must.Fprintf(w, "    %s COMMAND [args...]\n", c.Name)
+	must.Fprintf(w, "    %s <command> [args...]\n", c.Name)
 	must.Fprintf(w, "\n")
 
 	// ## Description

@@ -41,7 +41,7 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 	// Output:
 	// Usage
 	//
-	//     example COMMAND [args...]
+	//     example <command> [args...]
 	//
 	// Description
 	//
@@ -104,7 +104,7 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 	// Output:
 	// Usage
 	//
-	//     example COMMAND [args...]
+	//     example <command> [args...]
 	//
 	// Description
 	//
@@ -167,7 +167,7 @@ func Example_dispatcherCommandUsageWithHFlag() {
 	// Output:
 	// Usage
 	//
-	//     example COMMAND [args...]
+	//     example <command> [args...]
 	//
 	// Description
 	//
@@ -474,7 +474,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	// Output:
 	// Usage
 	//
-	//     example COMMAND [args...]
+	//     example <command> [args...]
 	//
 	// Description
 	//
@@ -537,7 +537,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	// Output:
 	// Usage
 	//
-	//     example COMMAND [args...]
+	//     example <command> [args...]
 	//
 	// Description
 	//
@@ -638,7 +638,7 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	// Output:
 	// Usage
 	//
-	//     example COMMAND [args...]
+	//     example <command> [args...]
 	//
 	// Description
 	//
