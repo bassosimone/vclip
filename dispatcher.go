@@ -178,7 +178,7 @@ func (c *DispatcherCommand) maybeHandleError(err error) error {
 		must.Fprintf(c.Stderr, "%s\n", err.Error())
 		switch {
 		case errors.Is(err, ErrCommandNotFound):
-			must.Fprintf(c.Stderr, "hint: use `%s --help' to see the available commands\n", c.Name)
+			must.Fprintf(c.Stderr, "%s: use `%s --help' to see the available commands\n", c.Name, c.Name)
 			c.Exit(2)
 		default:
 			c.Exit(1)

@@ -99,7 +99,7 @@ func TestDispatcherCommandMainExitOnErrorCommandNotFound(t *testing.T) {
 	status, _, stderr := runMainExpectExit(t, disp, []string{"nope"})
 
 	assert.Equal(t, 2, status)
-	assert.Contains(t, stderr, "hint: use `example --help'")
+	assert.Contains(t, stderr, "example: use `example --help'")
 }
 
 func TestDispatcherCommandMainExitOnErrorCommandError(t *testing.T) {

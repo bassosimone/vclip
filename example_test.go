@@ -467,7 +467,7 @@ func Example_dispatcherCommandUsageWithInvalidCommand() {
 
 	// Output:
 	// example: command not found: nope
-	// hint: use `example --help' to see the available commands
+	// example: use `example --help' to see the available commands
 }
 
 // This example shows that we show the help w/o failure w/ `--help` at the end of the command line.
