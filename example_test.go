@@ -41,16 +41,7 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 	// Output:
 	// Usage
 	//
-	//     example curl [args...]
-	//
-	//     example dig [args...]
-	//
-	//     example -h [args...]
-	//     example --help [args...]
-	//     example help [args...]
-	//
-	//     example --version [args...]
-	//     example version [args...]
+	//     example COMMAND [args...]
 	//
 	// Description
 	//
@@ -113,16 +104,7 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 	// Output:
 	// Usage
 	//
-	//     example curl [args...]
-	//
-	//     example dig [args...]
-	//
-	//     example -h [args...]
-	//     example --help [args...]
-	//     example help [args...]
-	//
-	//     example --version [args...]
-	//     example version [args...]
+	//     example COMMAND [args...]
 	//
 	// Description
 	//
@@ -185,16 +167,7 @@ func Example_dispatcherCommandUsageWithHFlag() {
 	// Output:
 	// Usage
 	//
-	//     example curl [args...]
-	//
-	//     example dig [args...]
-	//
-	//     example -h [args...]
-	//     example --help [args...]
-	//     example help [args...]
-	//
-	//     example --version [args...]
-	//     example version [args...]
+	//     example COMMAND [args...]
 	//
 	// Description
 	//
@@ -501,16 +474,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	// Output:
 	// Usage
 	//
-	//     example curl [args...]
-	//
-	//     example dig [args...]
-	//
-	//     example -h [args...]
-	//     example --help [args...]
-	//     example help [args...]
-	//
-	//     example --version [args...]
-	//     example version [args...]
+	//     example COMMAND [args...]
 	//
 	// Description
 	//
@@ -573,16 +537,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	// Output:
 	// Usage
 	//
-	//     example curl [args...]
-	//
-	//     example dig [args...]
-	//
-	//     example -h [args...]
-	//     example --help [args...]
-	//     example help [args...]
-	//
-	//     example --version [args...]
-	//     example version [args...]
+	//     example COMMAND [args...]
 	//
 	// Description
 	//
@@ -683,16 +638,7 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	// Output:
 	// Usage
 	//
-	//     example curl [args...]
-	//
-	//     example dig [args...]
-	//
-	//     example -h [args...]
-	//     example --help [args...]
-	//     example help [args...]
-	//
-	//     example --version [args...]
-	//     example version [args...]
+	//     example COMMAND [args...]
 	//
 	// Description
 	//

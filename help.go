@@ -59,13 +59,8 @@ func (c *DispatcherCommand) printHelp() error {
 	must.Fprintf(c.Stdout, "\n")
 	must.Fprintf(c.Stdout, "Usage\n")
 	must.Fprintf(c.Stdout, "\n")
-	for _, name := range slices.Sorted(maps.Keys(c.Commands)) {
-		for _, alias := range c.CommandNameToAliases[name] {
-			must.Fprintf(c.Stdout, "    %s %s [args...]\n", c.Name, alias)
-		}
-		must.Fprintf(c.Stdout, "    %s %s [args...]\n", c.Name, name)
-		must.Fprintf(c.Stdout, "\n")
-	}
+	must.Fprintf(c.Stdout, "    %s COMMAND [args...]\n", c.Name)
+	must.Fprintf(c.Stdout, "\n")
 
 	// ## Description
 	if len(c.Description) > 0 {
