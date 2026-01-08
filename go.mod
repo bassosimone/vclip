@@ -3,16 +3,16 @@ module github.com/bassosimone/vclip
 go 1.25.5
 
 require (
-	github.com/bassosimone/must v0.0.0-20260102142322-b47a2e584c2b
-	github.com/bassosimone/runtimex v0.0.0-20251217192325-70882b9ab4d3
+	github.com/bassosimone/must v0.0.0-20260108162644-b30ccdaf25aa
+	github.com/bassosimone/runtimex v0.0.0-20260108162100-336f3823f6b7
 	github.com/bassosimone/textwrap v0.0.0-20251230023300-aabed485c498
-	github.com/bassosimone/vflag v0.0.0-20260106190442-c5e62596f204
+	github.com/bassosimone/vflag v0.0.0-20260108163221-d4fde165a93d
 	github.com/stretchr/testify v1.11.1
 )
 
 require (
-	github.com/bassosimone/flagparser v0.0.0-20251231095233-7d23298f5b0e // indirect
-	github.com/bassosimone/flagscanner v0.0.0-20251227135253-cf7a31624729 // indirect
+	github.com/bassosimone/flagparser v0.0.0-20260108162306-26de65ccd6f3 // indirect
+	github.com/bassosimone/flagscanner v0.0.0-20260108162002-6d1877e940ce // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
