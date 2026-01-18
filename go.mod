@@ -13,6 +13,7 @@ require (
 require (
 	github.com/bassosimone/flagparser v0.0.0-20260108162306-26de65ccd6f3 // indirect
 	github.com/bassosimone/flagscanner v0.0.0-20260108162002-6d1877e940ce // indirect
+	github.com/bassosimone/iotest v0.0.0-20260108162419-cc1a50b01693 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
