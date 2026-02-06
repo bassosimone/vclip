@@ -64,13 +64,6 @@ type DispatcherCommand struct {
 	// that includes a minimal command description.
 	NewHelpSubcommandUsagePrinter func() vflag.UsagePrinter
 
-	// NewVersionSubcommandUsagePrinter returns the [vflag.UsagePrinter] that the
-	// auto-generated version subcommand should use.
-	//
-	// [NewDispatcherCommand] initializes this function to a sane default
-	// that includes a minimal command description.
-	NewVersionSubcommandUsagePrinter func() vflag.UsagePrinter
-
 	// Stderr is the [io.Writer] to use as the stderr.
 	//
 	// [NewDispatcherCommand] initializes this field to [os.Stderr].
@@ -89,11 +82,6 @@ type DispatcherCommand struct {
 	//
 	// Initialized by [NewDispatcherCommand] using [NewDefaultUsagePrinter].
 	UsagePrinter UsagePrinter
-
-	// Version contains the program version.
-	//
-	// [NewDispatcherCommand] initializes this field to "v0.0.0-dev".
-	Version string
 }
 
 const (
@@ -122,25 +110,23 @@ func NewDispatcherCommand(name string, handling vflag.ErrorHandling) *Dispatcher
 			usage.AddDescription(helpSubcommandDescr)
 			return usage
 		},
-		NewVersionSubcommandUsagePrinter: func() vflag.UsagePrinter {
-			usage := vflag.NewDefaultUsagePrinter()
-			usage.AddDescription(versionSubcommandDescr)
-			return usage
-		},
 		Stdout:       os.Stdout,
 		Stderr:       os.Stderr,
 		UsagePrinter: NewDefaultUsagePrinter(),
-		Version:      "v0.0.0-dev",
 	}
 
 	c.AddCommand("help", CommandFunc(c.helpMain), helpSubcommandDescr)
 	c.MustAddCommandAlias("help", "-h")
 	c.MustAddCommandAlias("help", "--help")
 
-	c.AddCommand("version", CommandFunc(c.versionMain), versionSubcommandDescr)
-	c.MustAddCommandAlias("version", "--version")
-
 	return c
+}
+
+// AddVersionHandlers adds code to handle `version` and `--version` by
+// printing the version number passed to this method.
+func (c *DispatcherCommand) AddVersionHandlers(version string) {
+	c.AddCommand("version", CommandFunc(c.versionMainFunc(version)), versionSubcommandDescr)
+	c.MustAddCommandAlias("version", "--version")
 }
 
 // AddDescription adds the given text to the description paragraphs.

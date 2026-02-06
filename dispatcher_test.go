@@ -154,9 +154,9 @@ func TestDispatcherCommandHelpMainUnknownCommand(t *testing.T) {
 	assert.ErrorIs(t, err, ErrCommandNotFound)
 }
 
-func TestDispatcherCommandVersionMainUnknownFlag(t *testing.T) {
+func TestDispatcherCommandVersionNotRegisteredByDefault(t *testing.T) {
 	disp := NewDispatcherCommand("example", vflag.ContinueOnError)
 
-	err := disp.Main(context.Background(), []string{"version", "--bogus"})
-	require.Error(t, err)
+	err := disp.Main(context.Background(), []string{"version"})
+	require.ErrorIs(t, err, ErrCommandNotFound)
 }

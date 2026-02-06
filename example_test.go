@@ -14,7 +14,7 @@ import (
 func Example_dispatcherCommandUsageWithHelpFlag() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -45,7 +45,7 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 	//
 	// Description
 	//
-	//     Dispacher for network commands.
+	//     Dispatcher for network commands.
 	//
 	// Commands
 	//
@@ -61,10 +61,6 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 	//
 	//         Show help about this command or about a subcommand.
 	//
-	//     --version, version
-	//
-	//         Show the version number and exit.
-	//
 	// Hints
 	//
 	//     Use `example <command> --help' to get command-specific help.
@@ -77,7 +73,7 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 func Example_dispatcherCommandUsageWithoutArguments() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -108,7 +104,7 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 	//
 	// Description
 	//
-	//     Dispacher for network commands.
+	//     Dispatcher for network commands.
 	//
 	// Commands
 	//
@@ -124,10 +120,6 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 	//
 	//         Show help about this command or about a subcommand.
 	//
-	//     --version, version
-	//
-	//         Show the version number and exit.
-	//
 	// Hints
 	//
 	//     Use `example <command> --help' to get command-specific help.
@@ -140,7 +132,7 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 func Example_dispatcherCommandUsageWithHFlag() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -171,7 +163,7 @@ func Example_dispatcherCommandUsageWithHFlag() {
 	//
 	// Description
 	//
-	//     Dispacher for network commands.
+	//     Dispatcher for network commands.
 	//
 	// Commands
 	//
@@ -187,10 +179,6 @@ func Example_dispatcherCommandUsageWithHFlag() {
 	//
 	//         Show help about this command or about a subcommand.
 	//
-	//     --version, version
-	//
-	//         Show the version number and exit.
-	//
 	// Hints
 	//
 	//     Use `example <command> --help' to get command-specific help.
@@ -203,8 +191,8 @@ func Example_dispatcherCommandUsageWithHFlag() {
 func Example_dispatcherCommandVersionCommand() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
-	disp.Version = "v0.1.0"
+	disp.AddDescription("Dispatcher for network commands.")
+	disp.AddVersionHandlers("v0.1.0")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -236,8 +224,8 @@ func Example_dispatcherCommandVersionCommand() {
 func Example_dispatcherCommandVersionFlag() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
-	disp.Version = "v0.1.0"
+	disp.AddDescription("Dispatcher for network commands.")
+	disp.AddVersionHandlers("v0.1.0")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -265,14 +253,13 @@ func Example_dispatcherCommandVersionFlag() {
 	// v0.1.0
 }
 
-// This example shows the usage printed using the `version --help` arguments
-// when using ContinueOnError (ExitOnError exits immediately so it's a different
-// codepath not controller by this library.)
+// This example shows that `version --help` just prints the version because
+// the version subcommand ignores all arguments.
 func Example_dispatcherCommandVersionHelp() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
-	disp.AddDescription("Dispacher for network commands.")
-	disp.Version = "v0.1.0"
+	disp.AddDescription("Dispatcher for network commands.")
+	disp.AddVersionHandlers("v0.1.0")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -293,33 +280,20 @@ func Example_dispatcherCommandVersionHelp() {
 	// a background context is sufficient for this example
 	ctx := context.Background()
 
-	// Invoke with `version --help` so that we print the version subcommand usage
+	// Invoke with `version --help`; the version subcommand ignores extra args
 	disp.Main(ctx, []string{"version", "--help"})
 
 	// Output:
-	// Usage
-	//
-	//     example version [flags]
-	//
-	// Description
-	//
-	//     Show the version number and exit.
-	//
-	// Flags
-	//
-	//     -h, --help
-	//
-	//         Show this help message and exit.
+	// v0.1.0
 }
 
-// This example shows that `help version` is equivalent to `version --help`
-// when using ContinueOnError (ExitOnError exits immediately so it's a different
-// codepath not controller by this library.)
+// This example shows that `help version` dispatches to `version --help`,
+// which just prints the version since the version subcommand ignores args.
 func Example_dispatcherCommandHelpVersion() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
-	disp.AddDescription("Dispacher for network commands.")
-	disp.Version = "v0.1.0"
+	disp.AddDescription("Dispatcher for network commands.")
+	disp.AddVersionHandlers("v0.1.0")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -340,33 +314,20 @@ func Example_dispatcherCommandHelpVersion() {
 	// a background context is sufficient for this example
 	ctx := context.Background()
 
-	// Invoke with `help version` so that we print the version subcommand usage
+	// Invoke with `help version`; dispatches to `version --help` which prints the version
 	disp.Main(ctx, []string{"help", "version"})
 
 	// Output:
-	// Usage
-	//
-	//     example version [flags]
-	//
-	// Description
-	//
-	//     Show the version number and exit.
-	//
-	// Flags
-	//
-	//     -h, --help
-	//
-	//         Show this help message and exit.
+	// v0.1.0
 }
 
-// This example shows an error being printed with invalid flag passed to `version`
-// when using ContinueOnError (ExitOnError exits immediately so it's a different
-// codepath not controller by this library.)
+// This example shows that `version --nope` just prints the version because
+// the version subcommand ignores all arguments.
 func Example_dispatcherCommandVersionInvalidFlag() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
-	disp.AddDescription("Dispacher for network commands.")
-	disp.Version = "v0.1.0"
+	disp.AddDescription("Dispatcher for network commands.")
+	disp.AddVersionHandlers("v0.1.0")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -384,25 +345,21 @@ func Example_dispatcherCommandVersionInvalidFlag() {
 		"Utility to query DNS servers.",
 	)
 
-	// Redirect the stderr to the stdout so that we can capture it
-	disp.Stderr = os.Stdout
-
 	// a background context is sufficient for this example
 	ctx := context.Background()
 
-	// Invoke with `help version` so that we print the version subcommand usage
+	// Invoke with `version --nope`; the version subcommand ignores extra args
 	disp.Main(ctx, []string{"version", "--nope"})
 
 	// Output:
-	// example version: unknown option: --nope
-	// example version: try `example version --help' for more help.
+	// v0.1.0
 }
 
 // This example shows the error emitted for an invalid command
 func Example_dispatcherCommandUsageWithInvalidCommand() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -447,7 +404,7 @@ func Example_dispatcherCommandUsageWithInvalidCommand() {
 func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -478,7 +435,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	//
 	// Description
 	//
-	//     Dispacher for network commands.
+	//     Dispatcher for network commands.
 	//
 	// Commands
 	//
@@ -494,10 +451,6 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	//
 	//         Show help about this command or about a subcommand.
 	//
-	//     --version, version
-	//
-	//         Show the version number and exit.
-	//
 	// Hints
 	//
 	//     Use `example <command> --help' to get command-specific help.
@@ -510,7 +463,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -541,7 +494,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	//
 	// Description
 	//
-	//     Dispacher for network commands.
+	//     Dispatcher for network commands.
 	//
 	// Commands
 	//
@@ -557,10 +510,6 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	//
 	//         Show help about this command or about a subcommand.
 	//
-	//     --version, version
-	//
-	//         Show the version number and exit.
-	//
 	// Hints
 	//
 	//     Use `example <command> --help' to get command-specific help.
@@ -575,7 +524,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 func Example_dispatcherCommandUsageHelpWithInvalidFlag() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -611,7 +560,7 @@ func Example_dispatcherCommandUsageHelpWithInvalidFlag() {
 func Example_dispatcherCommandUsageHelpHelp() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
@@ -642,7 +591,7 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	//
 	// Description
 	//
-	//     Dispacher for network commands.
+	//     Dispatcher for network commands.
 	//
 	// Commands
 	//
@@ -658,10 +607,6 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	//
 	//         Show help about this command or about a subcommand.
 	//
-	//     --version, version
-	//
-	//         Show the version number and exit.
-	//
 	// Hints
 	//
 	//     Use `example <command> --help' to get command-specific help.
@@ -676,7 +621,7 @@ func Example_dispatcherCommandUsageHelpHelp() {
 func Example_dispatcherCommandUsageHelpWithInvalidSubcommand() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ContinueOnError)
-	disp.AddDescription("Dispacher for network commands.")
+	disp.AddDescription("Dispatcher for network commands.")
 
 	// add two commands faking curl and dig
 	disp.AddCommand(
