@@ -25,5 +25,5 @@ import (
 func Main(ctx context.Context, cmd Command, args []string) {
 	ctx, cancel := signal.NotifyContext(ctx, interruptSignals...)
 	defer cancel()
-	runtimex.PanicOnError0(cmd.Main(ctx, args))
+	runtimex.LogFatalOnError0(cmd.Main(ctx, args))
 }
