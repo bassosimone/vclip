@@ -166,7 +166,7 @@ var _ Command = &DispatcherCommand{}
 // ErrCommandNotFound indicates that the given command was not found.
 var ErrCommandNotFound = errors.New("command not found")
 
-// Main implements [CommandHandler].
+// Main implements [Command].
 func (c *DispatcherCommand) Main(ctx context.Context, args []string) error {
 	return c.maybeHandleError(c.main(ctx, args))
 }
