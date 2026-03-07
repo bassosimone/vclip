@@ -18,6 +18,13 @@ type UsagePrinter interface {
 	PrintHelp(c *DispatcherCommand, w io.Writer)
 }
 
+// Constants controlling text formatting.
+const (
+	wrapAtColumn = 72
+	indent4      = "    "
+	indent8      = indent4 + indent4
+)
+
 // DefaultUsagePrinter is the default [UsagePrinter] implementation.
 //
 // Construct using [NewDefaultUsagePrinter].
@@ -34,9 +41,6 @@ var _ UsagePrinter = &DefaultUsagePrinter{}
 //
 // This method panics on I/O error.
 func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
-	// print the help message
-	const wrapAtColumn = 72
-
 	// ## Usage
 	must.Fprintf(w, "\n")
 	must.Fprintf(w, "Usage\n")
@@ -48,9 +52,7 @@ func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 	if len(c.Description) > 0 {
 		must.Fprintf(w, "Description\n")
 		for _, paragraph := range c.Description {
-			must.Fprintf(w, "\n")
-			must.Fprintf(w, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
-			must.Fprintf(w, "\n")
+			up.div1(w, paragraph)
 		}
 		must.Fprintf(w, "\n")
 	}
@@ -64,9 +66,7 @@ func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 		must.Fprintf(w, "    %s\n", strings.Join(aliases, ", "))
 		command := c.Commands[name]
 		for _, paragraph := range command.Descr {
-			must.Fprintf(w, "\n")
-			must.Fprintf(w, "%s", textwrap.Do(paragraph, wrapAtColumn, "        "))
-			must.Fprintf(w, "\n")
+			up.div2(w, paragraph)
 		}
 	}
 
@@ -79,10 +79,30 @@ func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 			"error and obtain contextual help.",
 	}
 	for _, paragraph := range paragraphs {
-		must.Fprintf(w, "\n")
-		must.Fprintf(w, "%s", textwrap.Do(paragraph, wrapAtColumn, "    "))
-		must.Fprintf(w, "\n")
+		up.div1(w, paragraph)
 	}
 
 	must.Fprintf(w, "\n")
+}
+
+// div1 prints a paragraph at 4-space indent level. If the paragraph starts
+// with 4 spaces, it is emitted verbatim (to allow preformatted blocks).
+func (up *DefaultUsagePrinter) div1(w io.Writer, entry string) {
+	must.Fprintf(w, "\n")
+	if strings.HasPrefix(entry, indent4) {
+		must.Fprintf(w, "%s%s\n", indent4, entry)
+	} else {
+		must.Fprintf(w, "%s\n", textwrap.Do(entry, wrapAtColumn, indent4))
+	}
+}
+
+// div2 prints a paragraph at 8-space indent level. If the paragraph starts
+// with 4 spaces, it is emitted verbatim (to allow preformatted blocks).
+func (up *DefaultUsagePrinter) div2(w io.Writer, entry string) {
+	must.Fprintf(w, "\n")
+	if strings.HasPrefix(entry, indent4) {
+		must.Fprintf(w, "%s%s\n", indent8, entry)
+	} else {
+		must.Fprintf(w, "%s\n", textwrap.Do(entry, wrapAtColumn, indent8))
+	}
 }

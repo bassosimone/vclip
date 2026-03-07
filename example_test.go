@@ -615,6 +615,67 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	//     errors to hide the error and obtain contextual help.
 }
 
+// This example shows that paragraphs starting with 4-space indentation are
+// emitted verbatim without word wrapping, both in description and command descriptions.
+func Example_dispatcherCommandUsageWithVerbatimParagraphs() {
+	// create and init the dispatcher command
+	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp.AddDescription(
+		"Dispatcher for network commands.",
+		"    example curl https://example.com/",
+		"    example dig example.com",
+	)
+
+	// add a command with a verbatim paragraph in its description
+	disp.AddCommand(
+		"curl",
+		vclip.CommandFunc(func(ctx context.Context, args []string) error {
+			return nil
+		}),
+		"Utility to transfer URLs.",
+		"    curl https://example.com/",
+	)
+
+	// a background context is sufficient for this example
+	ctx := context.Background()
+
+	// Invoke with `--help` so that we print the help
+	disp.Main(ctx, []string{"--help"})
+
+	// Output:
+	//
+	// Usage
+	//
+	//     example <command> [args...]
+	//
+	// Description
+	//
+	//     Dispatcher for network commands.
+	//
+	//         example curl https://example.com/
+	//
+	//         example dig example.com
+	//
+	// Commands
+	//
+	//     curl
+	//
+	//         Utility to transfer URLs.
+	//
+	//             curl https://example.com/
+	//
+	//     -h, --help, help
+	//
+	//         Show help about this command or about a subcommand.
+	//
+	// Hints
+	//
+	//     Use `example <command> --help' to get command-specific help.
+	//
+	//     Append `--help' or `-h' to any command line failing with usage
+	//     errors to hide the error and obtain contextual help.
+}
+
 // This example shows what the help subcommand does when passed an invalid subcommand
 // when using ContinueOnError (with ExitOnError we don't control what happens
 // since it all depends on the vflag library)
