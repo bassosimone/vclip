@@ -39,12 +39,12 @@ type DispatcherCommand struct {
 
 	// Description contains the description paragraphs.
 	//
-	// [NewDispatcherCommand] initializes this field to an empty slice.
+	// Set to the parameter passed to [NewDispatcherCommand].
 	Description []string
 
 	// ErrorHandling is the [vflag.ErrorHandling] policy to use.
 	//
-	// Set by the parameter passed to [NewDispatcherCommand].
+	// [NewDispatcherCommand] initializes this field using the corresponding parameter.
 	ErrorHandling vflag.ErrorHandling
 
 	// Exit is the function to call with the [ExitOnError] policy.
@@ -54,7 +54,7 @@ type DispatcherCommand struct {
 
 	// Name is the command name.
 	//
-	// Set by the parameter passed to [NewDispatcherCommand].
+	// Set to the parameter passed to [NewDispatcherCommand].
 	Name string
 
 	// NewHelpSubcommandUsagePrinter returns the [vflag.UsagePrinter] that the
