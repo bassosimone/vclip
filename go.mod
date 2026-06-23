@@ -5,8 +5,8 @@ go 1.25.5
 require (
 	github.com/bassosimone/must v0.0.0-20260617064914-34c9ef153034
 	github.com/bassosimone/runtimex v0.0.0-20260615112505-ee72c4f0769e
-	github.com/bassosimone/textwrap v0.0.0-20260615113929-f1a1c54eeabd
-	github.com/bassosimone/vflag v0.0.0-20260617162142-dce36f44c211
+	github.com/bassosimone/textwrap v0.0.0-20260623161521-ecf2c54815db
+	github.com/bassosimone/vflag v0.0.0-20260623165635-b59716a8b461
 	github.com/stretchr/testify v1.11.1
 )
 
