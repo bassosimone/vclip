@@ -3,15 +3,15 @@ module github.com/bassosimone/vclip
 go 1.25.5
 
 require (
-	github.com/bassosimone/must v0.0.0-20260708105316-861dd9e8d24d
-	github.com/bassosimone/runtimex v0.0.0-20260708083610-01df83158243
-	github.com/bassosimone/textwrap v0.0.0-20260623161521-ecf2c54815db
-	github.com/bassosimone/vflag v0.0.0-20260708122727-2e70ff20f9ce
-	github.com/stretchr/testify v1.12.0
+	github.com/bassosimone/must v0.0.0-20260821092040-0deb5316b37d
+	github.com/bassosimone/runtimex v0.0.0-20260817130226-a470a996118d
+	github.com/bassosimone/textwrap v0.0.0-20260721155105-b5619ff4e449
+	github.com/bassosimone/vflag v0.0.0-20260821094319-8b4cca87cb7a
+	github.com/stretchr/testify v1.12.1
 )
 
 require (
-	github.com/bassosimone/flagparser v0.0.0-20260708090239-8563911331ee // indirect
-	github.com/bassosimone/flagscanner v0.0.0-20260708082732-b5cac5102a3e // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
+	github.com/bassosimone/flagparser v0.0.0-20260817131103-382c730be712 // indirect
+	github.com/bassosimone/flagscanner v0.0.0-20260817125829-500b835a9da5 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 )
