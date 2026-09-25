@@ -138,6 +138,9 @@ func (c *DispatcherCommand) AddDescription(text ...string) {
 //
 // Commands MUST handle the `--help` flag and provide help when they see it regardless
 // of the otherwise different convention they use for flags.
+//
+// Under the default usage printer, a command with an empty descr list does not show
+// in the output emitted by `--help` and similar flags.
 func (c *DispatcherCommand) AddCommand(name string, cmd Command, descr ...string) {
 	c.Commands[name] = NewDescribedCommand(cmd, descr...)
 }

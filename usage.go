@@ -40,6 +40,11 @@ var _ UsagePrinter = &DefaultUsagePrinter{}
 // PrintHelp implements [UsagePrinter].
 //
 // This method panics on I/O error.
+//
+// When a subcommand does not include any help, the subcommand itself is
+// not included within the list of subcommands and is basically invisible
+// within the help screen. This property may be useful for avoiding
+// printing dozens of internal commands in complex CLIs.
 func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 	// ## Usage
 	must.Fprintf(w, "\n")
@@ -60,11 +65,14 @@ func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 	// ## Commands
 	must.Fprintf(w, "Commands\n")
 	for _, name := range slices.Sorted(maps.Keys(c.Commands)) {
+		command := c.Commands[name]
+		if len(command.Descr) <= 0 {
+			continue // Commands without a description are hidden
+		}
 		must.Fprintf(w, "\n")
 		aliases := slices.Clone(c.CommandNameToAliases[name])
 		aliases = append(aliases, name)
 		must.Fprintf(w, "    %s\n", strings.Join(aliases, ", "))
-		command := c.Commands[name]
 		for _, paragraph := range command.Descr {
 			up.div2(w, paragraph)
 		}

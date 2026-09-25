@@ -11,6 +11,9 @@ import (
 )
 
 // This example shows the usage printed when using the `--help` flag.
+//
+// Because we're using the default usage printer, the command named `internal` is
+// not shown in the output since no help text is registered for it.
 func Example_dispatcherCommandUsageWithHelpFlag() {
 	// create and init the dispatcher command
 	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
@@ -30,6 +33,14 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 			return nil
 		}),
 		"Utility to query DNS servers.",
+	)
+
+	// add a command w/o help, which is omitted from the listing.
+	disp.AddCommand(
+		"internal",
+		vclip.CommandFunc(func(ctx context.Context, args []string) error {
+			return nil
+		}),
 	)
 
 	// a background context is sufficient for this example
