@@ -10,8 +10,8 @@ github.com/bassosimone/runtimex v0.0.0-20260928111457-f2fe934d5065 h1:kTLEe+4NAR
 github.com/bassosimone/runtimex v0.0.0-20260928111457-f2fe934d5065/go.mod h1:2aW76skIZNS7ljOpIqU3eARVLmtb0AG/Gab4aegSkTA=
 github.com/bassosimone/textwrap v0.0.0-20260928111620-10df61158669 h1:utgi154TR8438lCyqL2mTpiwe6+iB3w5mCpepfXbeew=
 github.com/bassosimone/textwrap v0.0.0-20260928111620-10df61158669/go.mod h1:Abw4PaN0ny+I6/HT5tZV9NwTOz2qqT9MzWWom8g6veo=
-github.com/bassosimone/vflag v0.0.0-20260928113542-10198c4d0a30 h1:oMzZTw3qxx6QlClucGecLsyh9nMg1A+E9U9gH/PGTt0=
-github.com/bassosimone/vflag v0.0.0-20260928113542-10198c4d0a30/go.mod h1:1sdjCmDqic4UnClt2ZC0rxQ5eBzHQmYaFhP3ZsrL4Vg=
+github.com/bassosimone/vflag v0.0.0-20261001050637-5cd81148840b h1:khCJAvyIbBrAEe4h83P+GaXxDU6kFa41m9EZMP/9kbs=
+github.com/bassosimone/vflag v0.0.0-20261001050637-5cd81148840b/go.mod h1:1sdjCmDqic4UnClt2ZC0rxQ5eBzHQmYaFhP3ZsrL4Vg=
 github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE=
 github.com/stretchr/testify v1.12.1/go.mod h1:MDEgiDPPsNp5cuIrHPPCyornHKgEVbtFUmoNlxoYthg=
 go.yaml.in/yaml/v3 v3.0.5 h1:N6y/pJk8buWs9NY5ERU2HSMfm+IuD/OtfdAnq6kESPw=
