@@ -52,6 +52,7 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 	// Output:
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -68,7 +69,7 @@ func Example_dispatcherCommandUsageWithHelpFlag() {
 	//
 	//         Utility to query DNS servers.
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//
@@ -111,6 +112,7 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 	// Output:
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -127,7 +129,7 @@ func Example_dispatcherCommandUsageWithoutArguments() {
 	//
 	//         Utility to query DNS servers.
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//
@@ -170,6 +172,7 @@ func Example_dispatcherCommandUsageWithHFlag() {
 	// Output:
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -186,7 +189,7 @@ func Example_dispatcherCommandUsageWithHFlag() {
 	//
 	//         Utility to query DNS servers.
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//
@@ -262,6 +265,53 @@ func Example_dispatcherCommandVersionFlag() {
 
 	// Output:
 	// v0.1.0
+}
+
+// This example shows the version printed using the `-V` flag.
+func Example_dispatcherCommandVersionShortFlag() {
+	// create and init the dispatcher command
+	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp.AddVersionHandlers("v0.1.0")
+
+	// Invoke with `-V` so that we print the version number
+	disp.Main(context.Background(), []string{"-V"})
+
+	// Output:
+	// v0.1.0
+}
+
+// This example shows the usage printed when version handlers are configured.
+func Example_dispatcherCommandUsageWithVersion() {
+	// create and init the dispatcher command
+	disp := vclip.NewDispatcherCommand("example", vflag.ExitOnError)
+	disp.AddVersionHandlers("v0.1.0")
+
+	// Invoke with `--help` so that we print the usage
+	disp.Main(context.Background(), []string{"--help"})
+
+	// Output:
+	// Usage
+	//
+	//     example -h|--help
+	//     example -V|--version
+	//     example <command> [args...]
+	//
+	// Commands
+	//
+	//     help
+	//
+	//         Show help about this command or about a subcommand.
+	//
+	//     version
+	//
+	//         Show the version number and exit.
+	//
+	// Hints
+	//
+	//     Use `example <command> --help' to get command-specific help.
+	//
+	//     Append `--help' or `-h' to any command line failing with usage
+	//     errors to hide the error and obtain contextual help.
 }
 
 // This example shows that `version --help` just prints the version because
@@ -442,6 +492,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	// Output:
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -458,7 +509,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendHelp() {
 	//
 	//         Utility to query DNS servers.
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//
@@ -501,6 +552,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	// Output:
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -517,7 +569,7 @@ func Example_dispatcherCommandUsageWithInvalidCommandIfAppendH() {
 	//
 	//         Utility to query DNS servers.
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//
@@ -598,6 +650,7 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	// Output:
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -614,7 +667,7 @@ func Example_dispatcherCommandUsageHelpHelp() {
 	//
 	//         Utility to query DNS servers.
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//
@@ -657,6 +710,7 @@ func Example_dispatcherCommandUsageWithVerbatimParagraphs() {
 	//
 	// Usage
 	//
+	//     example -h|--help
 	//     example <command> [args...]
 	//
 	// Description
@@ -675,7 +729,7 @@ func Example_dispatcherCommandUsageWithVerbatimParagraphs() {
 	//
 	//             curl https://example.com/
 	//
-	//     -h, --help, help
+	//     help
 	//
 	//         Show help about this command or about a subcommand.
 	//

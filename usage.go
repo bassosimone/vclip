@@ -50,6 +50,13 @@ func (up *DefaultUsagePrinter) PrintHelp(c *DispatcherCommand, w io.Writer) {
 	must.Fprintf(w, "\n")
 	must.Fprintf(w, "Usage\n")
 	must.Fprintf(w, "\n")
+	// See [NewDispatcherCommand] and [DispatcherCommand.AddVersionHandlers]
+	if _, ok := c.findCommand("--help"); ok {
+		must.Fprintf(w, "    %s -h|--help\n", c.Name)
+	}
+	if _, ok := c.findCommand("--version"); ok {
+		must.Fprintf(w, "    %s -V|--version\n", c.Name)
+	}
 	must.Fprintf(w, "    %s <command> [args...]\n", c.Name)
 	must.Fprintf(w, "\n")
 

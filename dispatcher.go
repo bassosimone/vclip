@@ -34,7 +34,7 @@ type DispatcherCommand struct {
 	//
 	//  1. `-h`, `--help`, and `help` to print help.
 	//
-	//  2. `--version` and `version` to print the version number.
+	//  2. `-V`, `--version`, and `version` to print the version number.
 	Commands map[string]DescribedCommand
 
 	// Description contains the description paragraphs.
@@ -116,17 +116,18 @@ func NewDispatcherCommand(name string, handling vflag.ErrorHandling) *Dispatcher
 	}
 
 	c.AddCommand("help", CommandFunc(c.helpMain), helpSubcommandDescr)
-	c.MustAddCommandAlias("help", "-h")
-	c.MustAddCommandAlias("help", "--help")
+	c.AddCommand("--help", CommandFunc(c.helpMain)) // hidden
+	c.MustAddCommandAlias("--help", "-h")
 
 	return c
 }
 
-// AddVersionHandlers adds code to handle `version` and `--version` by
+// AddVersionHandlers adds code to handle `version`, `--version`, and `-V` by
 // printing the version number passed to this method.
 func (c *DispatcherCommand) AddVersionHandlers(version string) {
 	c.AddCommand("version", CommandFunc(c.versionMainFunc(version)), versionSubcommandDescr)
-	c.MustAddCommandAlias("version", "--version")
+	c.AddCommand("--version", CommandFunc(c.versionMainFunc(version))) // hidden
+	c.MustAddCommandAlias("--version", "-V")
 }
 
 // AddDescription adds the given text to the description paragraphs.
